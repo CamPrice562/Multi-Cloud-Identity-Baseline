@@ -1,14 +1,20 @@
-# Project 01: Multi-Cloud Identity Baseline
+# ☁️ Project 01: Multi-Cloud Identity Baseline
 
-[![Video Walkthrough](https://img.shields.io/badge/Video_Walkthrough-Watch_Here-blue?style=for-the-badge&logo=youtube)](#) *(Insert your Loom or YouTube unlisted link here)*
+[![Video Walkthrough](https://img.shields.io/badge/▶_Video_Walkthrough-Watch_Here-blue?style=for-the-badge)](#)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Microsoft](https://img.shields.io/badge/Microsoft_Entra_ID-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)
 
-## Problem
-**TICKET #IAM-001:** Security needs a sandboxed identity environment for two cloud platforms before any further IAM work begins. **Deliverable:** Documented Entra tenant + AWS Organizations setup with at least one identity in each, no shared admin credentials, and an architecture diagram of how they will eventually federate. Auditor will look at this in 30 days.
+> **🎫 TICKET #IAM-001: New Environment Provisioning**
+>
+> Security needs a sandboxed identity environment for two cloud platforms before any further IAM work begins.
+> 
+> **Deliverable:** Documented Entra tenant + AWS Organizations setup with at least one identity in each, no shared admin credentials, and an architecture diagram of how they will eventually federate. Auditor will look at this in 30 days.
 
-## Solution
-Established a Microsoft Entra ID tenant to serve as the baseline Identity Provider (IdP) and an AWS Organization with IAM Identity Center as the Service Provider (SP). Configured standard test users with specific job titles in Entra and mapped foundational groups and permission sets in AWS. This environment serves as the foundation for future infrastructure-as-code (IaC) and SAML federation projects.
+---
 
-## Architecture Diagram
+## 🏗️ Architecture Target State
+
+This repository establishes the standalone configurations for our Identity Provider (IdP) and Service Provider (SP). Utilizing **Diagrams-as-Code**, the target state for future SAML and SCIM integration is mapped below.
 
 ```mermaid
 graph LR
@@ -29,38 +35,45 @@ graph LR
     Users -.->|"Future SAML Federation"| SSO
 ```
 
-## Prerequisites
-* Free Microsoft Account for Entra ID
-* AWS Account (Root access)
+---
 
-## Setup Configuration
-### Entra ID (IdP)
-* **Primary Domain:** `[insert-your-domain].onmicrosoft.com`
-* **Test Users Created:**
-  * `alice@` (Platform Engineer)
-  * `bob@` (SecOps Analyst)
-  * `carol@` (Auditor)
+## ⚙️ Environment Configuration
 
-### AWS (SP)
-* **Region:** `[insert-your-region, e.g., us-east-1]`
-* **AWS Organizations:** Enabled
-* **IAM Identity Center:** Enabled
-* **SSO Group:** `Engineers`
-* **Permission Set:** `ReadOnlyAccess` (AWS Managed Policy)
+### Microsoft Entra ID (Identity Provider)
+| Component | Configuration |
+| :--- | :--- |
+| **Primary Domain** | `[insert-your-domain].onmicrosoft.com` |
+| **alice@** | Platform Engineer |
+| **bob@** | SecOps Analyst |
+| **carol@** | Auditor |
 
-## Verify Output
-A reviewer reading this repository can verify the following:
-* The target-state architecture is fully documented and utilizes an automated Diagrams-as-Code approach (Mermaid.js).
-* The AWS region and Entra tenant domains are defined and established.
-* The test accounts and access profiles are pre-staged for SAML and SCIM integration in upcoming projects.
+### AWS (Service Provider)
+| Component | Configuration |
+| :--- | :--- |
+| **Deployment Region** | `[insert-your-region, e.g., us-east-1]` |
+| **AWS Organizations** | Enabled |
+| **IAM Identity Center** | Enabled |
+| **SSO Group** | `Engineers` |
+| **Permission Set** | `ReadOnlyAccess` (AWS Managed Policy) |
 
-## Estimated Cost
-**$0/month** — All resources utilized in this baseline setup fall completely within the AWS Free Tier and Microsoft Entra ID Free tier. 
+---
 
-## Teardown
-To destroy this environment and ensure no lingering resources:
-1. **Entra ID:** Delete the three test users from the Users blade.
-2. **AWS:** Navigate to IAM Identity Center, delete the `ReadOnlyAccess` permission set, delete the `Engineers` group, and disable IAM Identity Center from the settings page. 
+## ✅ Verifiability
+
+A reviewer assessing this repository can instantly confirm the following:
+1. **Target-State Architecture:** Fully documented natively in markdown utilizing Mermaid.js.
+2. **Environment Baselines:** AWS region and Entra tenant domains are strictly defined.
+3. **Pre-staged Profiles:** Test accounts and access profiles are pre-staged for automated SAML and SCIM integration in upcoming projects.
+
+---
+
+## 💰 Cost & Teardown
+
+* **Estimated Cost:** **$0/month** (All resources utilized fall completely within the AWS Free Tier and Microsoft Entra ID Free tier).
+
+**To cleanly destroy this environment:**
+1. **Entra ID:** Delete the three test users from the *Users* blade.
+2. **AWS:** Navigate to IAM Identity Center, delete the `ReadOnlyAccess` permission set, delete the `Engineers` group, and disable IAM Identity Center from the core settings page.
 
 ---
 *Built by Cameron Price*
