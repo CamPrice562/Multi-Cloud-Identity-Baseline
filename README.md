@@ -23,13 +23,7 @@ graph LR
     end
 
     subgraph AWS["AWS Organization"]
-        direction TB
-        SSO["IAM Identity Center (SP)"]
-        Grp["Group: Engineers"]
-        Perm["Permission Set: ReadOnlyAccess"]
-
-        SSO --- Grp
-        Grp --- Perm
+        SSO["IAM Identity Center (SP)"] --- Grp["Group: Engineers"] --- Perm["Permission Set: ReadOnlyAccess"]
     end
 
     Users -.->|"Future SAML Federation"| SSO
@@ -39,22 +33,9 @@ graph LR
 
 ## ⚙️ Environment Configuration
 
-### Microsoft Entra ID (Identity Provider)
-| Component | Configuration |
+| Microsoft Entra ID (Identity Provider) | AWS (Service Provider) |
 | :--- | :--- |
-| **Primary Domain** | `[insert-your-domain].onmicrosoft.com` |
-| **alice@** | Platform Engineer |
-| **bob@** | SecOps Analyst |
-| **carol@** | Auditor |
-
-### AWS (Service Provider)
-| Component | Configuration |
-| :--- | :--- |
-| **Deployment Region** | `[insert-your-region, e.g., us-east-1]` |
-| **AWS Organizations** | Enabled |
-| **IAM Identity Center** | Enabled |
-| **SSO Group** | `Engineers` |
-| **Permission Set** | `ReadOnlyAccess` (AWS Managed Policy) |
+| **Primary Domain:**<br>`[insert-your-domain].onmicrosoft.com`<br><br>**Test Users:**<br>• `alice@` (Platform Engineer)<br>• `bob@` (SecOps Analyst)<br>• `carol@` (Auditor) | **Deployment Region:**<br>`[insert-your-region, e.g., us-east-1]`<br><br>**Configuration:**<br>• AWS Organizations: *Enabled*<br>• IAM Identity Center: *Enabled*<br>• SSO Group: *Engineers*<br>• Permission Set: *ReadOnlyAccess* |
 
 ---
 
